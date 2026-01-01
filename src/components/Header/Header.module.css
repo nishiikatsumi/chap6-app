@@ -1,0 +1,25 @@
+/* ヘッダー */
+header {
+  background-color: #333;
+  color: white;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.contact {
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+}
+
+.contact:hover {
+  text-decoration: underline;
+}
+

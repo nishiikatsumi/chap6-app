@@ -1,10 +1,14 @@
 import './App.css'
-import ArticleCard from './ArticleCard'
+import Header from './components/Header/index.jsx';
+import Home from './components/Home/index.jsx';
 
 function App({ posts }) {
 
   return (
-    <ArticleCard articles={posts} />
+    <div>
+      <Header />
+      <Home articles={posts} />
+    </div>
   );
 }
 
