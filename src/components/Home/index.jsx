@@ -1,19 +1,20 @@
 import { Link } from 'react-router-dom';
-import { useData } from '../../utils/DataContext.jsx';
 import { getDateString } from '../../utils/getDateString.jsx';
+import { posts } from '../../data/posts.js';
 
 import classes from './Home.module.css';
 import DOMPurify from 'dompurify';
 
 export default function Home() {
-  const { articles } = useData();
+  const articles = posts;
+
   return (
     <div>
       <main className={classes.main}>
         {articles.map((article) => (
-          <Link 
+          <Link
             key={article.id}
-            to={`/article/${article.id}`}
+            to={`/articles/${article.id}`}
             className={classes.cardLink}
           >
             <article key={article.id} className={classes.card}>
@@ -26,13 +27,13 @@ export default function Home() {
                 </div>
               </div>
               <h2 className={classes.title}>APIで取得した{article.title}</h2>
-              <p 
+              <p
                 className={classes.excerpt}
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
               />
             </article>
           </Link>
-          
+
         ))}
       </main>
     </div>

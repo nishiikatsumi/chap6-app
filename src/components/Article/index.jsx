@@ -1,17 +1,16 @@
 import { useParams } from 'react-router-dom';
-import { useData } from '../../utils/DataContext.jsx';
 import { getDateString } from '../../utils/getDateString.jsx';
+import { posts } from '../../data/posts.js';
 
 import classes from './Article.module.css';
 import DOMPurify from 'dompurify';
 
 export default function Article() {
-
-  const { id } = useParams();  // URLから id を取得
-  const { articles } = useData();
+  const { id } = useParams();
+  const articles = posts;
 
   const article = articles.find((a) => a.id === parseInt(id));
-  
+
   if (!article) {
     return <p>記事が見つかりません</p>;
   }
@@ -32,8 +31,8 @@ export default function Article() {
             </div>
           </div>
           <h2 className={classes.title}>APIで取得した{article.title}</h2>
-          <p 
-            className={classes.excerpt}
+          <p
+            className={classes.content}
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
           />
         </article>

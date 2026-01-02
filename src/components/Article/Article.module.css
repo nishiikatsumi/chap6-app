@@ -50,7 +50,7 @@
 }
 
 /* 記事本文（抜粋） */
-.excerpt {
+.content {
   font-size: 14px;
   color: #666;
   line-height: 1.8;
