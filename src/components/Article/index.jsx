@@ -9,20 +9,23 @@ export default function Article() {
   const { id } = useParams();
 
   const [post, setPost] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   // APIでpostを取得する処理をuseEffectで実行します。
   useEffect(() => {
     const fetcher = async () => {
+      setIsLoading(true)
       const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`)
       const data = await res.json()
       setPost(data.post)
+      setIsLoading(false)
     }
 
     fetcher()
   }, [id])
 
-  if (!post) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <div>読み込み中...</div>;
   }
 
   return (
