@@ -14,18 +14,22 @@ export default function Article() {
   // APIでpostを取得する処理をuseEffectで実行します。
   useEffect(() => {
     const fetcher = async () => {
-      setIsLoading(true)
-      const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`)
-      const data = await res.json()
-      setPost(data.post)
-      setIsLoading(false)
+      setIsLoading(true);
+      const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`);
+      const data = await res.json();
+      setPost(data.post);
+      setIsLoading(false);
     }
 
-    fetcher()
+    fetcher();
   }, [id])
 
   if (isLoading) {
     return <div>読み込み中...</div>;
+  }
+
+  if (post == undefined) {
+    return <div>記事が見つかりませんでした</div>;
   }
 
   return (
