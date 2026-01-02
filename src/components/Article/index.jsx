@@ -1,39 +1,49 @@
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getDateString } from '../../utils/getDateString.jsx';
-import { posts } from '../../data/posts.js';
 
 import classes from './Article.module.css';
 import DOMPurify from 'dompurify';
 
 export default function Article() {
   const { id } = useParams();
-  const articles = posts;
 
-  const article = articles.find((a) => a.id === parseInt(id));
+  const [post, setPost] = useState(null)
 
-  if (!article) {
-    return <p>記事が見つかりません</p>;
+  // APIでpostを取得する処理をuseEffectで実行します。
+  useEffect(() => {
+    const fetcher = async () => {
+      const res = await fetch(`https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts/${id}`)
+      const data = await res.json()
+      setPost(data.post)
+    }
+
+    fetcher()
+  }, [id])
+
+  if (!post) {
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
       <main className={classes.main}>
-        <article key={article.id} className={classes.card}>
+        <article key={post.id} className={classes.card}>
           <div>
             <img src="/800x400.png" />
           </div>
           <div className={classes.header}>
-            <span className={classes.date}>{getDateString(article.createdAt)}</span>
+            <span className={classes.date}>{getDateString(post.createdAt)}</span>
             <div className={classes.tags}>
-              {article.categories.map((tag) => (
+              {post.categories && post.categories.map((tag) => (
                 <span key={tag} className={classes.tag}>{tag}</span>
               ))}
             </div>
           </div>
-          <h2 className={classes.title}>APIで取得した{article.title}</h2>
+          <h2 className={classes.title}>APIで取得した{post.title}</h2>
           <p
             className={classes.content}
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.content) }}
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
           />
         </article>
       </main>
