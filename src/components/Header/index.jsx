@@ -9,7 +9,7 @@ export default function Header() {
 		      <Link to='/'>Blog</Link>
 		    </div>
 		    <div className={classes.contact}>
-		      <p>お問い合わせ</p>
+				  <Link to='/contact'>お問い合わせ</Link>
 		    </div>
       </header>
     </div>
