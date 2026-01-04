@@ -77,7 +77,7 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
+    if (!validateForm()) return;
 	  setLoading(true);
 
 	  try {
@@ -97,7 +97,6 @@ export default function Contact() {
 	  } finally {
 	    setLoading(false);
 	  }
-    }
   };
 
   const handleClear = () => {
